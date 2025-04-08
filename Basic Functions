@@ -1,0 +1,36 @@
+# Below you can find SQL queries involving basic applications of functions such as AVG() , MAX() , COUNT () and Keywords like GROUP BY, HAVING, WHERE, JOIN
+
+
+1.	How can you calculate the average age of male customers in the "customers" table?
+- SELECT AVG(age) FROM customers WHERE gender = ‘Male’;
+
+2.	How can you retrieve the top 4 movies with the highest ratings from the "movies" table?
+- SELECT * FROM movies ORDER BY rating desc LIMIT 4;
+
+3.	How can you retrieve the movie titles and ratings of movies with a rating greater than 8.5?
+- SELECT title, ratings FROM movies WHERE rating > 8.5 ;
+
+4.	How can you retrieve the highest rating for each genre?
+- SELECT genre, max(rating) FROM movies GROUP BY genre
+
+5.	Which SQL statement is used to calculate the total number of bookings for each movie genre?
+- SELECT movies.genre, bookings.count(*)
+FROM movies JOIN bookings ON movies.movie_id = bookings.booking.id 
+GROUP BY movies.genre
+
+6.	Which SQL statement is used to retrieve the customers who made more than 2 bookings?
+- SELECT c.name 
+FROM customers c 
+JOIN bookings b ON c.customer_id = b.customer_id 
+GROUP BY c.customer_id 
+HAVING COUNT(*) > 2;
+
+7.	How can you calculate the percentage of male customers in the "customers" table?
+- SELECT AVG(CASE WHEN gender = 'Male' THEN 1 ELSE 0 END) * 100 FROM customers;
+
+
+8.	How can you retrieve the customer who has made the most bookings?
+- SELECT c.name, COUNT(*) AS booking_count FROM customers c JOIN bookings b ON c.customer_id = b.customer_id GROUP BY c.customer_id ORDER BY booking_count DESC LIMIT 1;
+
+9.	Which SQL query can be used to list the names and ages of customers who have booked tickets for the movie with movie_id = 5?
+- SELECT c.name, c.age FROM customers c JOIN bookings b ON  c.customer_id = b.customer_id WHERE b.movie_id = 5
