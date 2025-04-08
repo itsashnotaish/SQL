@@ -1,0 +1,36 @@
+# Below you can find SQL queries that main use of JOINS and CASE statements
+
+10.	Given the Customers, Movies and Bookings tables, write an SQL query to retrieve the count of bookings for each genre.
+
+SELECT m.genre, COUNT(b.booking_id) AS booking_count
+FROM movies m
+LEFT JOIN bookings b
+ON m.movie_id = b.movie_id
+GROUP BY m.genre;
+
+
+11.	List the movie titles and their corresponding average ticket quantities.
+
+SELECT m.title, AVG(ticket_quantity) AS average_ticket_quantity
+FROM movies m
+JOIN bookings b
+ON m.movie_id = b.movie_id
+GROUP BY m.title;
+
+12.	Retrieve the customer names and their email IDs for bookings made on the date '5th June 2023'.
+
+SELECT c.name, c.email_id FROM customer c JOIN bookings b ON c.customer_id = b.customer_id WHERE b.booking_date = ‘2023-06-05’
+
+13.	Get the details of the movies with the highest rating.
+
+SELECT * FROM movies WHERE rating = (SELECT max(rating) FROM movies);
+
+14.	Retrieve the customer ID, name, and assign an age group based on the customer's age using the CASE statement.
+
+SELECT customer_id, name 
+CASE WHEN age >= 20 AND age <= 30 then ‘small’
+WHEN age >= 30 AND age <= 40 then ‘medium’
+WHEN age >= 40 AND age <= 50 then ‘large’
+END 
+AS age_group
+FROM customers;
