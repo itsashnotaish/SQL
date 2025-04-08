@@ -1,5 +1,5 @@
-# SQL
-SQL_Basic Level
+# SQL_Basic Level
+
 
 Source : Code Chef
 
